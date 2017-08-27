@@ -1,0 +1,48 @@
+buildscript {
+	ext {
+		springBootVersion = '1.5.6.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+
+    // JAX-RS
+	compile('org.springframework.boot:spring-boot-starter-jersey')
+
+    // Security:
+    compile('org.springframework.boot:spring-boot-starter-security')
+    testCompile('org.springframework.security:spring-security-test')
+
+
+    // Tools:
+    compile('org.springframework.boot:spring-boot-starter-logging')
+    compile('org.springframework.boot:spring-boot-starter-actuator')
+    compile('org.springframework.boot:spring-boot-actuator-docs')
+    runtime('org.springframework.boot:spring-boot-devtools')
+    compile('org.springframework.boot:spring-boot-configuration-processor')
+
+    // Testing
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+
+    // JSON Support
+    compile ('com.fasterxml.jackson.core:jackson-core')
+    compile ('com.fasterxml.jackson.core:jackson-databind')
+
+} // The End...

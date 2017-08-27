@@ -1,0 +1,17 @@
+
+# Show sensitive information for endpoints:
+endpoints:
+  sensitive: true
+
+# Security for endpoints:
+management:
+  security:
+    enabled: false
+
+# Disable BASIC Authentication:
+security:
+  basic:
+    enabled: false
+  user:
+    name: user1
+    password: changeme
