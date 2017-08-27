@@ -8,10 +8,10 @@ management:
   security:
     enabled: false
 
-# Disable BASIC Authentication:
+# Enable BASIC Authentication:
 security:
   basic:
-    enabled: false
+    enabled: true
   user:
     name: user1
     password: changeme

@@ -3,7 +3,10 @@ To access from this application:
 http://localhost:8080/index.html
 
 OLD:
-http://localhost:8080/AjaxTest.html
+http://localhost:8080/index-BASIC.html
+
+http://user1:changeme@localhost:9999/api
+
 -->
 <html>
 <head>
@@ -17,11 +20,12 @@ http://localhost:8080/AjaxTest.html
     <script type="application/javascript">
         $(document).ready(function(){
             $.ajax({
-                url: "http://localhost:8080/api",
+                url: "http://localhost:9999/api",
                 type : "GET",
                 crossDomain:true,
                 crossOrigin:true,
 
+                // Add BASIC Authentication headers:
                 beforeSend: function (xhr) {
                     // Use BASIC Authentication
                     xhr.setRequestHeader ("Authorization", "Basic " + btoa("user1:changeme"));
@@ -52,6 +56,6 @@ http://localhost:8080/AjaxTest.html
         <p class="message"><b>Application Message Returned:</b> </p>
     </div>
 
-    <h2><a href="index-BASIC.html">Spring Boot Ajax Test (with BASIC Authentication) example</a></h2>
+    <h2><a href="index.html">Spring Boot Ajax Test (without BASIC Authentication) example</a></h2>
 </body>
 </html>
