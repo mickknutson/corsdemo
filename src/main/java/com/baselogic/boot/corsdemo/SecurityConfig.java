@@ -1,11 +1,14 @@
 package com.baselogic.boot.corsdemo;
 
-import org.springframework.context.annotation.Configuration;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.context.annotation.*;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.configuration.EnableGlobalAuthentication;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.web.filter.CorsFilter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -17,6 +20,31 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // BASIC Authentication
         http.authorizeRequests()
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll();
+
+        http.cors();
+    }
+
+    @Description("This CORS Filter is of type org.springframework.web.filter.CorsFilter")
+    @Primary
+    @Bean
+    public CorsFilter corsFilter(){
+        return new CustomCorsFilter();
+    }
+
+    /**
+     * Generic GenericFilterBean CORS Filter
+     * @return
+     */
+    @Description("This CORS Filter is of type FilterRegistrationBean")
+    @Profile("filterBean")
+    @Bean
+    public FilterRegistrationBean corsFilterRegistration() {
+        FilterRegistrationBean registrationBean =
+                new FilterRegistrationBean(new CORSFilter());
+        registrationBean.setName("CORS Filter");
+        registrationBean.addUrlPatterns("/*");
+        registrationBean.setOrder(1);
+        return registrationBean;
     }
 
 } // The End...

@@ -25,7 +25,8 @@ public class CORSFilter extends GenericFilterBean implements Filter {
         httpResponse.setHeader("Access-Control-Allow-Methods", "*");
 //        httpResponse.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, OPTIONS, DELETE");
 
-        // XMLHttpRequest cannot load http://localhost:9999/api. Request header field Authorization is not allowed by Access-Control-Allow-Headers in preflight response.
+        // XMLHttpRequest cannot load http://localhost:8080/api.
+        // Request header field Authorization is not allowed by Access-Control-Allow-Headers in preflight response.
 //        httpResponse.setHeader("Access-Control-Allow-Headers", "*");
         httpResponse.setHeader("Access-Control-Allow-Headers",
                 "Origin, X-Requested-With, Content-Type, Accept, X-Auth-Token, X-Csrf-Token, Authorization");
