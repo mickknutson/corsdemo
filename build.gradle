@@ -57,7 +57,7 @@ jacocoTestReport {
             destination = file("${project.buildDir}/reports/jacoco/report.xml")
         }
         html {
-            enabled = true
+            enabled = false
             destination = file("${project.buildDir}/reports/jacoco")
         }
         csv.enabled false

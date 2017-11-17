@@ -60,10 +60,7 @@ jobs:
       # run test, check, coverage reports and be quick about it!!!
       - run:
           name: run test, check, coverage reports and be quick about it!!!
-          command: ./gradlew check -Pfast
-
-#      # run check and coverage reports only
-#      - run: ./gradlew check -Pfast
+          command: ./gradlew check
 
       - run:
           name: Saving test results
