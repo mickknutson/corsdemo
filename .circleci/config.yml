@@ -98,10 +98,10 @@ jobs:
           name: Storing Artifacts
           path: ~/junit
 
-      # Publish build result to Gradle Build Scan
-      - run:
-          name: Publish build result to Gradle Build Scan
-          command: ./gradlew bSPP
+#      # Publish build result to Gradle Build Scan
+#      - run:
+#          name: Publish build result to Gradle Build Scan
+#          command: ./gradlew bSPP
 
 
 
