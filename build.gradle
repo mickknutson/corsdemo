@@ -1,7 +1,5 @@
 buildscript {
-    ext {
-        springBootVersion = '1.5.8.RELEASE'
-    }
+    ext {}
     repositories {
         mavenCentral()
     }
@@ -10,61 +8,104 @@ buildscript {
     }
 }
 
-apply plugin: 'java'
-apply plugin: 'idea'
-apply plugin: 'eclipse'
-apply plugin: 'org.springframework.boot'
-apply plugin: 'jacoco'
+apply plugin: "java"
+apply plugin: "idea"
+apply plugin: "org.springframework.boot"
 
-version = '2.0.1-SNAPSHOT'
-sourceCompatibility = 1.8
+/**
+ * https://docs.gradle.org/current/userguide/project_reports_plugin.html
+ * taskReport
+ * propertyReport
+ * dependencyReport
+ * htmlDependencyReport
+ * --> projectReports
+ */
+apply plugin: "project-report"
+
+check.dependsOn projectReport
+
+
+// Utils:
+apply from: "${rootDir}/config/utils.gradle"
+
+// Code Coverage:
+apply from: "${rootDir}/config/codecoverage.gradle"
+
+// https://github.com/kt3k/coveralls-gradle-plugin
+//    apply plugin: "com.github.kt3k.coveralls"
+
+apply from: "${rootDir}/config/findbugs.gradle"
+
+// PMD:
+apply from: "${rootDir}/config/pmd.gradle"
+
+// CPD:
+//    apply from: "${rootDir}/config/cpd.gradle"
+
+// CheckStyle:
+apply from: "${rootDir}/config/checkstyle.gradle"
+
+// lintGradle:
+//    apply from: "${rootDir}/config/lint.gradle"
+
+// Build Scan:
+//    apply from: "${rootDir}/config/buildscan.gradle"
+
 
 repositories {
-    mavenCentral()
+    mavenLocal()
+    jcenter()
+    maven { url "https://plugins.gradle.org/m2/" }
+
+    maven { url "https://repo.spring.io/milestone" }
+    maven { url "https://repo.spring.io/libs-milestone" }
+
+    maven { url "https://repo.spring.io/libs-snapshot" }
+    maven { url "https://repo.spring.io/snapshot" }
+}
+
+task showRepos {
+    doLast {
+        println "All repos:"
+        println repositories.collect { it.name }
+    }
 }
 
 dependencies {
 
     // JAX-RS
-    compile('org.springframework.boot:spring-boot-starter-jersey')
+    compile("org.springframework.boot:spring-boot-starter-jersey")
 
     // Security:
-    compile('org.springframework.boot:spring-boot-starter-security')
-    testCompile('org.springframework.security:spring-security-test')
+    compile("org.springframework.boot:spring-boot-starter-security")
+    testCompile("org.springframework.security:spring-security-test")
 
 
     // Tools:
-    compile('org.springframework.boot:spring-boot-starter-logging')
-    compile('org.springframework.boot:spring-boot-starter-actuator')
-    compile('org.springframework.boot:spring-boot-actuator-docs')
-    runtime('org.springframework.boot:spring-boot-devtools')
-    compile('org.springframework.boot:spring-boot-configuration-processor')
+    compile("org.springframework.boot:spring-boot-starter-logging")
+    compile("org.springframework.boot:spring-boot-starter-actuator")
+    compile("org.springframework.boot:spring-boot-actuator-docs")
+    runtime("org.springframework.boot:spring-boot-devtools")
+    compile("org.springframework.boot:spring-boot-configuration-processor")
 
     // Testing
-    testCompile('org.springframework.boot:spring-boot-starter-test')
+    testCompile("org.springframework.boot:spring-boot-starter-test")
 
     // JSON Support
-    compile ('com.fasterxml.jackson.core:jackson-core')
-    compile ('com.fasterxml.jackson.core:jackson-databind')
+    compile ("com.fasterxml.jackson.core:jackson-core")
+    compile ("com.fasterxml.jackson.core:jackson-databind")
 
 }
 
 
-jacocoTestReport {
-    reports {
-        xml {
-            enabled = true
-            destination = file("${project.buildDir}/reports/jacoco/report.xml")
-        }
-        html {
-            enabled = false
-            destination = file("${project.buildDir}/reports/jacoco")
-        }
-        csv.enabled false
-    }
-}
 
-check.dependsOn jacocoTestReport
+/**
+ * Gradle Wrapper can be run from root only
+ * gradle wrapper
+ */
+task wrapper(type: Wrapper) {
+    gradleVersion = "${gradleVersion}"
+}
 
 
 // The End...
