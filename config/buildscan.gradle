@@ -1,0 +1,60 @@
+
+/**
+ * Build Scanning
+ * https://docs.gradle.com/build-scan-plugin/
+ * https://plugins.gradle.org/plugin/com.gradle.build-scan
+ *
+ * To run:
+ * ./gradlew check -Dscan
+ *
+ * To publish PREVIOUS build results:
+ * ./gradlew bSPP
+ *
+ * Scan Results:
+ * https://scans.gradle.com/s/ghnyw4vnom4zk
+ *
+ */
+
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath ("com.gradle:build-scan-plugin:1.10.2")
+    }
+}
+
+plugins {
+//    id "com.gradle.build-scan" version "1.10.2"
+
+    // https://blog.jdriven.com/2017/01/spring-sweets-add-git-info-info-endpoint/
+//    id "com.gorylenko.gradle-git-properties" version "1.4.17"
+}
+
+apply plugin: "com.gradle.build-scan"
+
+
+buildScan {
+    licenseAgreementUrl = "https://gradle.com/terms-of-service"
+    licenseAgree = "yes"
+    publishAlways()
+
+    // TODO: Must add these values locally:
+//    tag "JBCP Calendar"
+//    link "BitBucket", "https://bitbucket.org/mickknutson/jbcpcalendar"
+
+    if (System.getenv('CI')) {
+        publishAlways()
+        tag 'CI'
+    }
+
+}
+
+// https://github.com/melix/gradle-buildscan-recipes
+/*buildScanRecipes {
+  recipes "git-status", "travis-ci", "disk-usage", "gc-stats"
+  recipe "git-commit", baseUrl: "https://github.com/ben-manes/caffeine/tree"
+}*/
+
