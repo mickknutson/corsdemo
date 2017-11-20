@@ -6,7 +6,7 @@
  * apply from: "${rootDir}/config/sonar.gradle"
  *
  * This will run Sonar, then publish build results:
- * ./gradlew sonarqube bSPP
+ * ./gradlew sonarqube -Dscan
  *
  */
 /*buildscript {

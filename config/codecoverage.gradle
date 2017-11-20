@@ -30,26 +30,34 @@ jacoco {
  * Can be run on individual subprojects:
  * gradle jacocoTestReport
  */
-jacocoTestReport {
+/*jacocoTestReport {
+
+    xmlReport = true
+    htmlReport = false
+
+    if (!ext.has("htmlCoverage")) {
+        xmlReport = false
+        htmlReport = true
+    }
+
     reports {
         xml {
-            enabled = true
+            enabled = xmlReport
             setDestination(file("${project.buildDir}/reports/jacoco/report.xml"))
         }
         html {
-            enabled = false
+            enabled = htmlReport
             setDestination(file("${project.buildDir}/reports/jacoco/"))
         }
-//        csv.enabled = false
+    }
+}*/
+
+jacocoTestReport {
+
+    reports {
+        xml.enabled = true
+        html.enabled = true
     }
 }
 
 check.dependsOn jacocoTestReport
-//jacocoTestReport.dependsOn test
-
-//apply plugin: "com.github.kt3k.coveralls"
-
-/*coveralls {
-//    sourceDirs = sourceSets.main.allSource.srcDirs.flatten()
-    jacocoReportPath = "${reportsOut}/report.xml"
-}*/
