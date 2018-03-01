@@ -1,5 +1,6 @@
 package com.baselogic.boot.corsdemo;
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,10 +16,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class RestEndpoint {
 
-//    @CrossOrigin
     @GetMapping("/api")
-    public String index(){
-        return "{Hello World}";
+    public String api(){
+        return "{Hello API}";
+    }
+
+    @CrossOrigin
+    @GetMapping("/crossOrigin")
+    public String crossOrigin(){
+        return "{Hello crossOrigin API}";
     }
 
 } // The End...

@@ -4,7 +4,7 @@
 
 
 /**
- * TODO: Need to finish
+ * TODO: Need to finish this cleaning utility
  */
 task scrub(type:Exec){
 
@@ -85,3 +85,37 @@ rm -rf $HOME/.gradle/daemon/
 //    from( tasks.jar )
 //    into( new File( buildDir, "${name}Outputs" ) )  // copies into build/helloOutputs
 //}
+
+def myCopySpec = project.copySpec {
+    into("config/idea")
+    exclude("**/.data/**")
+    from("${project.rootDir}/.idea/runConfigurations") {
+        include "**/*.xml"
+    }
+}
+
+/**
+ * ./gradlew saveIdeaConfig
+ */
+/**
+ * Import and export the IDEA run configuration
+ *
+ * <pre>./gradlew exportIdea</pre>
+ * <pre>./gradlew restoreIdeaConfig</pre>
+ *
+ * Source code location:
+ * <pre>${project.rootDir}/config/idea/runConfigurations</pre>
+ *
+ * IDEA configuration location:
+ * <pre>${project.rootDir}/.idea/runConfigurations</pre>
+ */
+task exportIdea( type: Copy ) {
+    //./config/idea/runConfigurations
+    from( "${project.rootDir}/.idea/runConfigurations" )
+    into( "${project.rootDir}/config/idea/runConfigurations" )
+}
+task restoreIdeaConfig( type: Copy ) {
+    //./config/idea/runConfigurations
+    from( "${project.rootDir}/config/idea/runConfigurations" )
+    into( "${project.rootDir}/.idea/runConfigurations" )
+}

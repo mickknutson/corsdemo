@@ -1,7 +1,9 @@
 package com.baselogic.boot.corsdemo;
 
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.*;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.configuration.EnableGlobalAuthentication;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -11,6 +13,7 @@ import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
 @Configuration
+@Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
@@ -24,19 +27,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors();
     }
 
+
     @Description("This CORS Filter is of type org.springframework.web.filter.CorsFilter")
     @Primary
+    @Profile("customCorsFilter")
     @Bean
     public CorsFilter corsFilter(){
         return new CustomCorsFilter();
     }
+
 
     /**
      * Generic GenericFilterBean CORS Filter
      * @return
      */
     @Description("This CORS Filter is of type FilterRegistrationBean")
-    @Profile("filterBean")
+    @Profile("corsFilterBean")
     @Bean
     public FilterRegistrationBean corsFilterRegistration() {
         FilterRegistrationBean registrationBean =
