@@ -56,7 +56,7 @@ task findbugsReport(type: FindBugs) {
 project.findbugs.ignoreFailures = true
 
 //check.dependsOn findbugs
- check {
+check {
     dependsOn += ["findbugsReport"]
 }
 
