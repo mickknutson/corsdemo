@@ -24,6 +24,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll();
 
+        // Optionally use the Spring Security built in cors function:
         http.cors();
     }
 
@@ -45,6 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Profile("corsFilterBean")
     @Bean
     public FilterRegistrationBean corsFilterRegistration() {
+
         FilterRegistrationBean registrationBean =
                 new FilterRegistrationBean(new CORSFilter());
         registrationBean.setName("CORS Filter");

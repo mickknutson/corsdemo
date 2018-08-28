@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
 
 @SpringBootApplication
-@ComponentScan
 public class CorsdemoApplication {
 
 	public static void main(String[] args) {

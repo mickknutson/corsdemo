@@ -18,13 +18,15 @@ public class CustomCorsFilter extends CorsFilter {
             "X-Csrf-Token", "Authorization");
 
     private static UrlBasedCorsConfigurationSource corsConfigurationSource() {
+
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(false);
         config.addAllowedOrigin("*");
 
-        // XMLHttpRequest cannot load http://localhost:8080/api.
-        // Request header field Authorization is not allowed by Access-Control-Allow-Headers in preflight response.
-//        configuration.addAllowedHeader("*");
+        // NOTE: XMLHttpRequest cannot load http://localhost:8080/api.
+        // NOTE: Request header field Authorization is not allowed by
+        // NOTE: Access-Control-Allow-Headers in preflight response.
+        //configuration.addAllowedHeader("*");
         config.setAllowedHeaders(ALLOWABLE_HEADERS);
 
         config.setMaxAge(36_000L);
